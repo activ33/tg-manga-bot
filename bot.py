@@ -381,7 +381,7 @@ async def send_manga_chapter(client, data, chat_id):
             return await bot.send_message(chat_id,
                                           f'There was an error parsing this chapter or chapter is missing' +
                                           f', please check the chapter at the web\n\n{error_caption}')
-        thumb_path = "https://raw.githubusercontent.com/activ33/tg-manga-bot/master/IMG_20230926_021150_879.jpg"
+        thumb_path = fld2thumb(pictures_folder)
 
     chapter_file = chapter_file or ChapterFile(url=chapter.url)
 
@@ -407,7 +407,8 @@ async def send_manga_chapter(client, data, chat_id):
                 return await bot.send_message(chat_id, f'There was an error making the pdf for this chapter. '
                                                        f'Forward this message to the bot group to report the '
                                                        f'error.\n\n{error_caption}')
-            media_docs.append(InputMediaDocument(pdf, thumb=thumb_path))
+                thumnn = "https://raw.githubusercontent.com/activ33/tg-manga-bot/master/IMG_20230926_021150_879.jpg"
+            media_docs.append(InputMediaDocument(pdf, thumb=thumnn))
 
     if options & OutputOptions.CBZ:
         if chapter_file.cbz_id:
