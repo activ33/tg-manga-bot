@@ -412,7 +412,7 @@ async def send_manga_chapter(client, data, chat_id):
             return await bot.send_message(chat_id,
                                           f'There was an error parsing this chapter or chapter is missing' +
                                           f', please check the chapter at the web\n\n{error_caption}')
-        thumb_path = fld2thumb(pictures_folder)
+        thumb_path = ""
 
     chapter_file = chapter_file or ChapterFile(url=chapter.url)
 
@@ -423,7 +423,7 @@ async def send_manga_chapter(client, data, chat_id):
         success_caption += f'[Read on telegraph]({chapter_file.telegraph_url})\n'
     success_caption += f'[Read on website]({chapter.get_url()})'
 
-    ch_name = clean(f'{clean(chapter.manga.name, 25)} - {chapter.name}', 45)
+    ch_name = f'{chapter.name.split(" ",1)[0]} - {chapter.manga.name} @MangaDatabase'
 
     media_docs = []
 
