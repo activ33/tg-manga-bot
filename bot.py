@@ -412,7 +412,7 @@ async def send_manga_chapter(client, data, chat_id):
             return await bot.send_message(chat_id,
                                           f'There was an error parsing this chapter or chapter is missing' +
                                           f', please check the chapter at the web\n\n{error_caption}')
-        thumb_path = ""
+        thumb_path = "https://raw.githubusercontent.com/activ33/tg-manga-bot/master/IMG_20230926_021150_879.jpg"
 
     chapter_file = chapter_file or ChapterFile(url=chapter.url)
 
