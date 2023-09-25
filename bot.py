@@ -130,37 +130,6 @@ async def on_chat_or_channel_message(client: Client, message: Message):
     pass
 
 
-@bot.on_message()
-async def on_private_message(client: Client, message: Message):
-    channel = env_vars.get('CHANNEL')
-    if not channel:
-        return message.continue_propagation()
-    if in_channel_cached := users_in_channel.get(message.from_user.id):
-        if dt.datetime.now() - in_channel_cached < dt.timedelta(days=1):
-            return message.continue_propagation()
-    try:
-        if await client.get_chat_member(channel, message.from_user.id):
-            users_in_channel[message.from_user.id] = dt.datetime.now()
-            return message.continue_propagation()
-    except pyrogram.errors.UsernameNotOccupied:
-        logger.debug("Channel does not exist, therefore bot will continue to operate normally")
-        return message.continue_propagation()
-    except pyrogram.errors.ChatAdminRequired:
-        logger.debug("Bot is not admin of the channel, therefore bot will continue to operate normally")
-        return message.continue_propagation()
-    except pyrogram.errors.UserNotParticipant:
-        await message.reply("In order to use the bot you must join it's update channel.",
-                            reply_markup=InlineKeyboardMarkup(
-                                [[InlineKeyboardButton('Join!', url=f't.me/{channel}')]]
-                            ))
-    except pyrogram.ContinuePropagation:
-        raise
-    except pyrogram.StopPropagation:
-        raise
-    except BaseException as e:
-        logger.exception(e)
-
-
 @bot.on_message(filters=filters.command(['start']))
 async def on_start(client: Client, message: Message):
     logger.info(f"User {message.from_user.id} started the bot")
