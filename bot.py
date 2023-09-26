@@ -392,7 +392,7 @@ async def send_manga_chapter(client, data, chat_id):
         success_caption += f'[Read on telegraph]({chapter_file.telegraph_url})\n'
     success_caption += f'[Read on website]({chapter.get_url()})'
 
-    ch_name = f'{chapter.name.split(" ",1)[0]} - {chapter.manga.name} @MangaDatabase'
+    ch_name = f'{chapter.name.split} {chapter.manga.name} @MangaDatabase'
 
     media_docs = []
 
